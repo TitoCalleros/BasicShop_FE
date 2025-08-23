@@ -15,7 +15,7 @@ export class HomePageComponent {
   productsResource = rxResource({
     request: () => ({}),
     loader: ({ request }) => {
-      return this.productsService.getProducts({page: 1, pageSize: 3, search: '', sort: 1, gender: ''});
+      return this.productsService.getProducts({page: 1, pageSize: 6, search: '', sort: 0, gender: ''});
     }
   });
 }
