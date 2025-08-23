@@ -6,9 +6,9 @@
 
     "baseUrl": "./",
     "paths": {
-      "@dashboard/*": ["./src/app/admin-dashboard"],
-      "@products/*": ["./src/app/products"],
-      "@store-front/*": ["./src/app/store-front"],
+      "@dashboard/*": ["./src/app/admin-dashboard/*"],
+      "@products/*": ["./src/app/products/*"],
+      "@store-front/*": ["./src/app/store-front/*"],
     },
 
     "outDir": "./dist/out-tsc",
