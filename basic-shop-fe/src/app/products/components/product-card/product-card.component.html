@@ -1,12 +1,12 @@
-<div class="card card-side bg-base-100 shadow-sm animate-fadeIn">
+<div class="card animate-fadeIn bg-base-100 shadow-sm">
   <figure>
-    <img src="./assets/images/kids.svg" alt="Logo" class="h-30 w-auto" />
+    <img [src]="product().gender | productImage" [alt]="product().name" class="h-50 w-50" />
   </figure>
   <div class="card-body">
-    <h2 class="card-title">New movie is released!</h2>
-    <p>Click the button to watch on Jetflix app.</p>
+    <h2 class="card-title font-montserrat text-accent text-xl cursor-pointer hover:underline" [routerLink]="['/product/', product().id]">{{ product().name }}</h2>
+    <p>{{ product().description | slice:0:70 }}...</p>
     <div class="card-actions justify-end">
-      <a class="link link-accent" [routerLink]="['/product/', 't-shirt']">
+      <a class="link link-accent" [routerLink]="['/product/', product().id]">
         Ver producto
       </a>
     </div>
