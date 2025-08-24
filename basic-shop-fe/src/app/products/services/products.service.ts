@@ -20,7 +20,7 @@ interface ProductOptions {
 export class ProductsService {
   private http = inject(HttpClient);
 
-  getProducts(options: ProductOptions) :Observable<ProductsResponse> {
+  getProducts(options: ProductOptions) : Observable<ProductsResponse> {
 
     const { page = 1, pageSize = 9, search = '', sort = 0, gender = ''} = options;
 
@@ -36,5 +36,9 @@ export class ProductsService {
       .pipe(
         tap( resp => console.log(resp))
       )
+  }
+
+  getProductById(id: string) : Observable<Product> {
+    return this.http.get<Product>(`${baseUrl}/products/${id}`);
   }
 }
