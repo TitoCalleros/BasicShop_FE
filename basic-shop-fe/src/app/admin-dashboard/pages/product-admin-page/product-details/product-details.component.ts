@@ -1,4 +1,4 @@
-import { Component, computed, inject, input, OnInit, signal } from '@angular/core';
+import { Component, inject, input, OnInit, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -14,31 +14,26 @@ import { ProductImagePipe } from '@products/pipes/product-image.pipe';
   templateUrl: './product-details.component.html',
 })
 export class ProductDetailsComponent implements OnInit {
+  productService = inject(ProductsService);
   product = input.required<Product>();
 
   fb = inject(FormBuilder);
   router = inject(Router);
 
-  productService = inject(ProductsService);
-
   formUtils = FormUtils;
 
   wasSaved = signal(false);
 
-  imageFileList: FileList | undefined = undefined;
-  tempImages = signal<string[]>([]);
-
   productDetailsForm = this.fb.group({
-    name: ['', [Validators.required, Validators.minLength(10)]],
-    description: ['', [Validators.required]],
+    name: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(50)]],
+    description: ['', [Validators.required, Validators.maxLength(250)]],
     price: [0, [Validators.required, Validators.min(0)]],
-    stock: [0,  [Validators.required, Validators.min(0)]],
+    stock: [0,  [Validators.required, Validators.min(0), Validators.max(30000)]],
     gender: ['men', [Validators.required, Validators.pattern(/men|women|kid/)]],
   });
 
   ngOnInit(): void {
     this.setFormValue(this.product());
-
   }
 
   setFormValue(formLike: Partial<Product>) {
@@ -59,7 +54,6 @@ export class ProductDetailsComponent implements OnInit {
     };
 
     if (this.product().id === 'new') {
-
       const product = await firstValueFrom(
         this.productService.createProduct(productLike)
       );
@@ -83,15 +77,4 @@ export class ProductDetailsComponent implements OnInit {
       }
     }, 3000);
   }
-
-  // onFilesChanged(event: Event) {
-  //   const fileList = (event.target as HTMLInputElement).files;
-  //   this.imageFileList = fileList ?? undefined;
-  //   this.tempImages.set([]);
-
-  //   const imageUrls = Array.from( fileList ?? [] ).map( file => URL.createObjectURL(file) );
-
-  //   this.tempImages.set(imageUrls);
-
-  // }
 }
