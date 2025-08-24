@@ -27,7 +27,7 @@ export class ProductDetailsComponent implements OnInit {
   productDetailsForm = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(50)]],
     description: ['', [Validators.required, Validators.maxLength(250)]],
-    price: [0, [Validators.required, Validators.min(0)]],
+    price: [0, [Validators.required, Validators.min(0.01)]],
     stock: [0,  [Validators.required, Validators.min(1), Validators.max(30000), Validators.pattern(/^\d+$/)]],
     gender: ['men', [Validators.required, Validators.pattern(/men|women|kid/)]],
   });
