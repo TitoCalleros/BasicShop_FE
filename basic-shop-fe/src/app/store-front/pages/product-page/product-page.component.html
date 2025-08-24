@@ -1,1 +1,28 @@
-<p>product-page works!</p>,
+@if (productResource.isLoading()) {
+  <div class="flex justify-center items-center h-screen">
+    <span class="loading loading-spinner loading-lg"></span>
+  </div>
+}
+
+@if (productResource.hasValue()) {
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+
+    <!-- Images -->
+    <figure>
+    <img [src]="productResource.value().gender | productImage" [alt]="productResource.value().name" class="h-50 w-50" />
+  </figure>
+    <div>
+      <h2 class="text-2xl font-bold font-montserrat text-accent mb-4">{{ productResource.value().name }}</h2>
+
+      <div class="divider"></div>
+
+      <p>{{ productResource.value().description }}</p>
+      <p>{{ productResource.value().gender }}</p>
+      <p><span class="text-info" >Price: </span>{{ productResource.value().price | currency : 'MXN' : 'symbol-narrow' : '1.2-2' }}</p>
+      <p><span class="text-info">Disponibles: </span>{{ productResource.value().stock }}</p>
+
+    </div>
+
+  </div>
+}
