@@ -1,0 +1,90 @@
+<h1 class="text-2xl font-bold">{{ product()!.name }}</h1>
+<div class="divider"></div>
+
+<form [formGroup]="productDetailsForm" class="grid grid-cols-1 sm:grid-cols-2 gap-4" (ngSubmit)="onSubmit()">
+  <!-- Datos generales -->
+  <div class="flex flex-col gap-2">
+    <h2 class="text-2xl font-bold h-12">Datos generales</h2>
+    <input
+      type="text"
+      formControlName="name"
+      placeholder="Título"
+      class="input input-bordered w-full"
+      [class.border-red-500]="productDetailsForm.get('name')?.errors ?? false"
+    />
+    <shared-form-error-label [control]="productDetailsForm.get('name')!"/>
+
+    <textarea
+      formControlName="description"
+      class="textarea textarea-bordered"
+      placeholder="Descripción"
+      rows="6"
+      [class.border-red-500]="productDetailsForm.get('description')?.errors ?? false"
+    ></textarea>
+    <shared-form-error-label [control]="productDetailsForm.get('description')!"/>
+
+    <h2 class="text-lg font-bold">Datos de venta</h2>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+      <div>
+        <input
+          type="number"
+          placeholder="Precio"
+          class="input input-bordered w-full"
+          formControlName="price"
+          [class.border-red-500]="productDetailsForm.get('price')?.errors ?? false"
+        />
+        <shared-form-error-label [control]="productDetailsForm.get('price')!"/>
+      </div>
+
+      <div>
+        <input
+          type="number"
+          placeholder="Inventario"
+          class="input input-bordered w-full"
+          formControlName="stock"
+          [class.border-red-500]="productDetailsForm.get('stock')?.errors ?? false"
+        />
+        <shared-form-error-label [control]="productDetailsForm.get('stock')!"/>
+      </div>
+    </div>
+
+    <!-- Botones para el género -->
+    <div class="grid grid-cols-4 gap-2">
+      <!-- <button class="btn btn-sm btn-outline">Masculino</button> -->
+      <button type="button" [class.btn-primary]="productDetailsForm.value.gender === 'men'" class="btn btn-sm btn-outline" (click)="productDetailsForm.patchValue({ gender: 'men'})">Masculino</button>
+      <button type="button" [class.btn-accent]="productDetailsForm.value.gender === 'women'" class="btn btn-sm btn-outline"(click)="productDetailsForm.patchValue({ gender: 'women'})">Femenino</button>
+      <button type="button" [class.btn-warning]="productDetailsForm.value.gender === 'kids'" class="btn btn-sm btn-outline"(click)="productDetailsForm.patchValue({ gender: 'kid'})">Kid</button>
+    </div>
+
+  </div>
+
+  <!-- Imágenes -->
+  <div class="flex flex-col gap-2">
+    <div class="flex justify-end h-12">
+      <button class="btn btn-secondary" type="submit">
+        Guardar
+      </button>
+    </div>
+
+    <figure class="max-h-50 max-w-100">
+      <img [src]="product().gender | productImage" [alt]="product().name" class="h-50 w-50" />
+    </figure>
+    <!-- <product-carrousel [images]="imagesToCarrousel()" /> -->
+
+    <!-- <input type="file" multiple accept="image/*" class="file-input file-input-bordered w-full mt-4"
+    (change)="onFilesChanged($event)" /> -->
+
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-2">
+      @for (image of tempImages(); track image) {
+        <img [src]="image" alt="image to upload" class="w-full object-cover rounded-xl" >
+      }
+    </div>
+  </div>
+</form>
+
+@if (wasSaved()) {
+  <div class="alert alert-success fixed bottom-4 right-4 w-80 animate-fadeIn">
+    <span>Datos actualizados correctamente!</span>
+  </div>
+}
