@@ -1,11 +1,11 @@
 <div class="card animate-fadeIn bg-base-100 shadow-sm">
-  <figure>
+  <figure class="max-h-50 max-w-100">
     <img [src]="product().gender | productImage" [alt]="product().name" class="h-50 w-50" />
   </figure>
   <div class="card-body">
     <h2 class="card-title font-montserrat text-accent text-xl cursor-pointer hover:underline" [routerLink]="['/product/', product().id]">{{ product().name }}</h2>
-    <p>{{ product().description | slice:0:70 }}...</p>
-    <div class="card-actions justify-end">
+    <p>{{ product().description | slice : 0 : 70 }}@if(product().description.length > 70){ ... }</p>
+    <div class="card-actions justify-end my-3">
       <a class="link link-accent" [routerLink]="['/product/', product().id]">
         Ver producto
       </a>
