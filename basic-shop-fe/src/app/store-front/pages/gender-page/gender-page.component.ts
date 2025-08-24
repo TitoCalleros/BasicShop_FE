@@ -2,9 +2,9 @@ import { I18nSelectPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { rxResource, toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
+import { map } from 'rxjs';
 import { ProductCardComponent } from '@products/components/product-card/product-card.component';
 import { ProductsService } from '@products/services/products.service';
-import { map } from 'rxjs';
 
 @Component({
   selector: 'app-gender-page',
