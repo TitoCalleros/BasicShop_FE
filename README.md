@@ -4,7 +4,7 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
 
 ## Development server
 
-Clone repository and open a terminal, execute npm install to download dependencies
+Clone the repository, open a terminal, navigate to project directory and execute npm install to download dependencies
 
 ```bash
 npm install
