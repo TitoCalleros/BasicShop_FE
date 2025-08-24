@@ -4,7 +4,7 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
 
 ## Development server
 
-Download repository and in terminal execute npm install to download dependencies
+Clone repository and open a terminal, execute npm install to download dependencies
 
 ```bash
 npm install
@@ -14,7 +14,7 @@ To start a local development server, run:
 
 
 ```bash
-ng serve
+ng serve -o
 ```
 
 Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
