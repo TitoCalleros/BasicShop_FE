@@ -17,11 +17,13 @@
 
       <div class="divider"></div>
 
-      <p>{{ productResource.value().description }}</p>
-      <p>{{ productResource.value().gender }}</p>
-      <p><span class="text-info" >Price: </span>{{ productResource.value().price | currency : 'MXN' : 'symbol-narrow' : '1.2-2' }}</p>
+      <p class="text-2xl mb-1">{{ productResource.value().description }}</p>
+      <p><span class="text-info" >Genero: </span>{{ productResource.value().gender }}</p>
+      <p><span class="text-info" >Precio: </span>{{ productResource.value().price | currency : 'MXN' : 'symbol-narrow' : '1.2-2' }}</p>
       <p><span class="text-info">Disponibles: </span>{{ productResource.value().stock }}</p>
-
+      <a class="link link-accent mx-10 mt-3" [routerLink]="['/']">
+        Regresar
+      </a>
     </div>
 
   </div>
