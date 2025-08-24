@@ -18,7 +18,7 @@ export class HomePageComponent {
   productsResource = rxResource({
     request: () => ({page: this.paginationService.currentPage()}),
     loader: ({ request }) => {
-      return this.productsService.getProducts({page: request.page, pageSize: 6, search: '', sort: 0, gender: ''});
+      return this.productsService.getProducts({page: request.page, pageSize: 8, search: '', sort: 0, gender: ''});
     }
   });
 }

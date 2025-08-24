@@ -33,7 +33,7 @@ export class GenderPageComponent {
 
     request: () => ({gender: this.gender(), page: this.paginationService.currentPage()}),
     loader: ({request}) => {
-      return this.productsService.getProducts({page: request.page, pageSize: 6, search: '', sort: 0, gender: request.gender});
+      return this.productsService.getProducts({page: request.page, pageSize: 8, search: '', sort: 0, gender: request.gender});
     }
   });
 
