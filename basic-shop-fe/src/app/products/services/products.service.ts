@@ -1,10 +1,19 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Product, ProductsResponse } from '@products/interfaces/product.interface';
-import { Observable, tap } from 'rxjs';
+import { Observable, of, tap } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
 
 const baseUrl = environment.baseUrl;
+
+const emptyProduct: Product = {
+  id: 'new',
+  name: '',
+  price: 0,
+  description: '',
+  stock: 0,
+  gender: 'men'
+}
 
 interface ProductOptions {
   page?: number;
@@ -20,7 +29,7 @@ interface ProductOptions {
 export class ProductsService {
   private http = inject(HttpClient);
 
-  getProducts(options: ProductOptions) : Observable<ProductsResponse> {
+  getProducts(options: ProductOptions): Observable<ProductsResponse> {
 
     const { page = 1, pageSize = 9, search = '', sort = 0, gender = ''} = options;
 
@@ -38,7 +47,19 @@ export class ProductsService {
       )
   }
 
-  getProductById(id: string) : Observable<Product> {
+  getProductById(id: string): Observable<Product> {
+    if (id === 'new'){
+      return of(emptyProduct);
+    }
+
     return this.http.get<Product>(`${baseUrl}/products/${id}`);
+  }
+
+  createProduct(productLike: Partial<Product>): Observable<Product> {
+    return this.http.post<Product>(`${baseUrl}/products`, productLike);
+  }
+
+  updateProduct(id: string, productLike: Partial<Product>): Observable<Product> {
+    return this.http.put<Product>(`${baseUrl}/products/${id}`, productLike);
   }
 }
