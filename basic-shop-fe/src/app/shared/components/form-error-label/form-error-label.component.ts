@@ -3,7 +3,7 @@ import { AbstractControl, ValidationErrors } from '@angular/forms';
 import { FormUtils } from '@shared/utils/form-utils';
 
 @Component({
-  selector: 'app-form-error-label',
+  selector: 'shared-form-error-label',
   imports: [],
   templateUrl: './form-error-label.component.html',
 })
