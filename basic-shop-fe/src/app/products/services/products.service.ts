@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { Product, ProductsResponse } from '@products/interfaces/product.interface';
-import { Observable, of, tap } from 'rxjs';
+import { map, Observable, of, tap } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
 
 const baseUrl = environment.baseUrl;
@@ -28,6 +28,8 @@ interface ProductOptions {
 })
 export class ProductsService {
   private http = inject(HttpClient);
+
+  selectedId = signal<string | null>(null);
 
   getProducts(options: ProductOptions): Observable<ProductsResponse> {
 
@@ -61,5 +63,13 @@ export class ProductsService {
 
   updateProduct(id: string, productLike: Partial<Product>): Observable<Product> {
     return this.http.put<Product>(`${baseUrl}/products/${id}`, productLike);
+  }
+
+  deleteProduct(): Observable<Product> {
+
+    return this.http.delete<Product>(`${baseUrl}/products/${this.selectedId()}`)
+      .pipe(
+        tap( () => this.selectedId.set(null) )
+      );
   }
 }
